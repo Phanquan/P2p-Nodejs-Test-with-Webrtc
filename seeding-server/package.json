@@ -1,0 +1,16 @@
+{
+  "name": "seeding-server",
+  "version": "1.0.0",
+  "description": "Seeding server for DSD App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PQ",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "wrtc": "^0.4.7"
+  }
+}
