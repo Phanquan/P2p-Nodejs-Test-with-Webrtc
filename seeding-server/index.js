@@ -66,7 +66,7 @@ app.post("/answer", async (req, res) => {
 
 // Function to send a file from a separate folder over the data channel
 function sendFile() {
-  const filePath = "../files/20250217-141858-schedule.zip"; // UPDATE with your actual file path
+  const filePath = "../files/test-img.png"; // UPDATE with your actual file path
   fs.stat(filePath, (err, stats) => {
     if (err) {
       console.error("File not accessible:", err);

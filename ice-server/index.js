@@ -26,7 +26,7 @@ const server = new Turn({
   },
 
   // Optional: set a realm (used in authentication messages)
-  // realm: "dsd.vnditech.com",
+  // realm: "example.com",
 
   // Optional: If your server is behind a NAT, specify the public IP address
   // externalIps: ['YOUR_PUBLIC_IP'],
