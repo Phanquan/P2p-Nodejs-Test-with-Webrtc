@@ -1,0 +1,30 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  coturn:
+    image: coturn/coturn
+    container_name: coturn
+    restart: unless-stopped
+    network_mode: host # Required for proper NAT handling
+    environment:
+      - TURN_REALM=local
+      - TURN_USERNAME=username
+      - TURN_PASSWORD=password
+      - TURN_PUBLIC_IP=192.168.31.118 # Replace with your Mac's IP
+      - TURN_MIN_PORT=40000
+      - TURN_MAX_PORT=60000
+    volumes:
+      - ./coturn-data/certs:/etc/coturn/certs
+      - ./coturn-data/turndb:/var/lib/coturn
+    command: |
+      --log-file=stdout
+      --verbose
+      --lt-cred-mech
+      --no-tls
+      --no-dtls
+      --no-stun
+    ports:
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+      - "5349:5349/tcp"
