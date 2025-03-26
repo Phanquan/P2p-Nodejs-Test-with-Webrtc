@@ -1,3 +1,4 @@
+// seeding-server.js
 const WebSocket = require("ws");
 const {
   RTCPeerConnection,
@@ -9,15 +10,17 @@ const path = require("path");
 
 const config = {
   sharedFolder: "./shared_files",
-  signalingServer: "ws://localhost:8080",
+  signalingServer: "ws://127.0.0.1:8080",
   room: "file-share-room",
   iceServers: [
+    { urls: "stun:dsd.vnditech.com:3478" },
     {
-      urls: [
-        "stun:192.168.31.118:3478",
-        "turn:192.168.31.118:3478?transport=udp",
-        "turn:192.168.31.118:3478?transport=tcp",
-      ],
+      urls: "turn:dsd.vnditech.com:3478?transport=udp",
+      username: "username",
+      credential: "password",
+    },
+    {
+      urls: "turn:dsd.vnditech.com:3478?transport=tcp",
       username: "username",
       credential: "password",
     },
@@ -76,7 +79,7 @@ class SeedingServer {
     log(`Creating peer connection for ${senderId}`);
     const pc = new RTCPeerConnection({
       iceServers: config.iceServers,
-      iceTransportPolicy: "all", // Start with 'all', fallback to 'relay'
+      iceTransportPolicy: "relay", // Start with 'all', fallback to 'relay'
     });
 
     const dc = pc.createDataChannel("fileTransfer");

@@ -1,3 +1,4 @@
+// peer-client.js
 const WebSocket = require("ws");
 const {
   RTCPeerConnection,
@@ -12,12 +13,14 @@ const config = {
   signalingServer: "ws://localhost:8080",
   room: "file-share-room",
   iceServers: [
+    { urls: "stun:dsd.vnditech.com:3478" },
     {
-      urls: [
-        "stun:192.168.31.118:3478",
-        "turn:192.168.31.118:3478?transport=udp",
-        "turn:192.168.31.118:3478?transport=tcp",
-      ],
+      urls: "turn:dsd.vnditech.com:3478?transport=udp",
+      username: "username",
+      credential: "password",
+    },
+    {
+      urls: "turn:dsd.vnditech.com:3478?transport=tcp",
       username: "username",
       credential: "password",
     },
@@ -33,7 +36,7 @@ class FileClient {
     this.ws = new WebSocket(config.signalingServer);
     this.pc = new RTCPeerConnection({
       iceServers: config.iceServers,
-      iceTransportPolicy: "all", // Start with 'all', switch to 'relay' if needed
+      iceTransportPolicy: "relay", // Start with 'all', switch to 'relay' if needed
     });
 
     this.currentFile = null;
